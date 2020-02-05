@@ -1,5 +1,4 @@
 
-
 import 'package:flutter/material.dart';
 import 'package:listview/myflexiableappbar.dart';
 import 'package:listview/myappbar.dart';
@@ -36,49 +35,94 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+  Future _data;
+  Future getsData()async{
+    var firestore =Firestore.instance;
+    QuerySnapshot qn=await firestore.collection("posts").getDocuments();
+    return qn.documents;
+  }
+  navigateToDetail (DocumentSnapshot post){
+    /* Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseInfoScreen=(post: post,)));*/
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)));
+  }
+  @override
+  void initState(){
+    super.initState();
+    setState(() {
+      _data=getsData();
+    });
 
+  }
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-              title: MyAppBar(),
-              backgroundColor: Colors.white,
-              pinned: true,
-              expandedHeight: 280.0,
-              flexibleSpace: FlexibleSpaceBar(
-                background: MyFlexiableAppBar(),
-              )
-          ),
-          SliverList(
-            delegate: SliverChildBuilderDelegate ((context,int index){
-              return StreamBuilder (
-                stream:Firestore.instance.collection('posts').snapshots(),
-                builder: (context,AsyncSnapshot<QuerySnapshot> snapshot) {
-                  DocumentSnapshot mypost = snapshot.data.documents[index];
-                  if(snapshot.hasData){
-                    return Container(
-                      child: FadeInImage.memoryNetwork(
-                        placeholder: kTransparentImage,
-                        image: '${mypost['image']}',
-                        width: MediaQuery.of(context).size.width,
-                        fit: BoxFit.fitWidth,
+        body:FutureBuilder(
+          future: _data,
+          builder: (_,snapshot){
+
+            return  CustomScrollView(
+              slivers: <Widget>[
+                SliverAppBar(
+                    title: MyAppBar(),
+                    backgroundColor: Colors.white,
+                    pinned: true,
+                    expandedHeight: 280.0,
+                    flexibleSpace: FlexibleSpaceBar(
+                      background: MyFlexiableAppBar(),
+                    )
+                ),
+                SliverList(
+                  delegate: SliverChildBuilderDelegate ((context,index){
+                    return InkWell(
+                      onTap: (){
+                        print('${snapshot.data[index].data["image"]}');
+                        navigateToDetail(snapshot.data[index]);
+                      },
+                      child: Container(
+                        child: FadeInImage.memoryNetwork(
+                          placeholder: kTransparentImage,
+                          image: '${snapshot.data[index].data["image"]}',
+                          height: 250.0,
+                          width: MediaQuery.of(context).size.width,
+                          fit: BoxFit.fill,
+                        ),
                       ),
                     );
-                  }
-                },
-              );
-            },
 
-                childCount:3
-             /* childCount: 3*/
-            ),
+                  },
+                    childCount:snapshot.data.length
+                    /* childCount: 3*/
+                  ),
 
-          )
+                )
+              ],
+            );
+          },
+        )
+
+    );
+  }
+}
+
+class DetailPage extends StatefulWidget {
+
+  final DocumentSnapshot post;
+  DetailPage({this.post});
+  @override
+  _DetailPageState createState() => _DetailPageState();
+}
+
+class _DetailPageState extends State<DetailPage> {
+  @override
+  Widget build(BuildContext context) {
+    return Container(
+      child: Column(
+        children: <Widget>[
+          Image.network(widget.post.data["image"]),
+          Text(widget.post.data["title"]),
+          Text(widget.post.data["subtitle"])
         ],
       ),
-
     );
   }
 }
