@@ -78,13 +78,16 @@ class _SearchState extends State<Search> {
                         print('${snapshot.data[index].data["image"]}');
                         navigateToDetail(snapshot.data[index]);
                       },
-                      child: Container(
-                        child: FadeInImage.memoryNetwork(
+                      child: Center(
+                      /*  child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          image: '${snapshot.data[index].data["image"]}',
+                          *//*image: '${snapshot.data[index].data["image"]}',*//*
                           height: 250.0,
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fill,
+                        ),*/
+                        child: Hero(tag: snapshot.data[index],
+                          child: Image.network(snapshot.data[index].data["image:"]),
                         ),
                       ),
                     );
@@ -118,7 +121,10 @@ class _DetailPageState extends State<DetailPage> {
     return Container(
       child: Column(
         children: <Widget>[
-          Image.network(widget.post.data["image"]),
+         Hero(
+           transitionOnUserGestures: true,
+           tag: DocumentSnapshot,child: Transform.scale(scale: 2.0,child: Image.network(widget.post.data["image"]),),
+         ),
           Text(widget.post.data["title"]),
           Text(widget.post.data["subtitle"])
         ],
