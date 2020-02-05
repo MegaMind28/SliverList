@@ -123,7 +123,7 @@ class _DetailPageState extends State<DetailPage> {
         children: <Widget>[
          Hero(
            transitionOnUserGestures: true,
-           tag: widget,child: Transform.scale(scale: 2.0,child: Image.network(widget.post.data["image"]),),
+           tag: widget.post,child: Transform.scale(scale: 2.0,child: Image.network(widget.post.data["image"]),),
          ),
           Text(widget.post.data["title"]),
           Text(widget.post.data["subtitle"])
