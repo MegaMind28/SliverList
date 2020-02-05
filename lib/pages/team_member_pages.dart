@@ -136,8 +136,8 @@ class _DetailPageState extends State<DetailPage> {
       ),
       body: Center(
         child: Hero(transitionOnUserGestures: true,
-        tag: widget,/*child: Transform.scale(scale: 1.0,child: Image.network(widget.post.data["image"]),),*/
-          child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),
+        tag: widget,child: Transform.scale(scale: 1.5,child: Image.network(widget.post.data["image"]),),
+          /*child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),*/
       ),
       ));
   }
