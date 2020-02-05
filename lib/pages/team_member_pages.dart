@@ -79,16 +79,16 @@ class _SearchState extends State<Search> {
                         navigateToDetail(snapshot.data[index]);
                       },
                       child: Center(
-                        child: FadeInImage.memoryNetwork(
+                      /*  child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
                           image: '${snapshot.data[index].data["image"]}',
                           height: 250.0,
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fill,
-                        ),
-                      /*  child: Hero(tag: snapshot.data[index],
-                          child: Image.network(snapshot.data[index].data["image:"]),
                         ),*/
+                        child: Hero(tag: snapshot.data[index],
+                          child: Image.network(snapshot.data[index].data["image"]),
+                        ),
                       ),
                     );
 
