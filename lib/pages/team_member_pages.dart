@@ -79,16 +79,16 @@ class _SearchState extends State<Search> {
                         navigateToDetail(snapshot.data[index]);
                       },
                       child: Center(
-                      /*  child: FadeInImage.memoryNetwork(
+                        child: FadeInImage.memoryNetwork(
                           placeholder: kTransparentImage,
-                          *//*image: '${snapshot.data[index].data["image"]}',*//*
+                          image: '${snapshot.data[index].data["image"]}',
                           height: 250.0,
                           width: MediaQuery.of(context).size.width,
                           fit: BoxFit.fill,
-                        ),*/
-                        child: Hero(tag: snapshot.data[index],
-                          child: Image.network(snapshot.data[index].data["image:"]),
                         ),
+                      /*  child: Hero(tag: snapshot.data[index],
+                          child: Image.network(snapshot.data[index].data["image:"]),
+                        ),*/
                       ),
                     );
 
@@ -118,17 +118,27 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    /*return Container(
+      child: Center(
         children: <Widget>[
          Hero(
            transitionOnUserGestures: true,
-           tag: widget.post,child: Transform.scale(scale: 2.0,child: Image.network(widget.post.data["image"]),),
+           tag: widget,child: Transform.scale(scale: 1.0,child: Image.network(widget.post.data["image"]),),
          ),
-          Text(widget.post.data["title"]),
+          Hero(child: Text(widget.post.data["title"])),
           Text(widget.post.data["subtitle"])
         ],
       ),
-    );
+    );*/
+    return Scaffold(
+      appBar: AppBar(
+        title: Text(widget.post.data["title"]),
+      ),
+      body: Center(
+        child: Hero(transitionOnUserGestures: true,
+        tag: widget,/*child: Transform.scale(scale: 1.0,child: Image.network(widget.post.data["image"]),),*/
+          child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),
+      ),
+      ));
   }
 }
