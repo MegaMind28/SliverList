@@ -38,14 +38,14 @@ class MyFlexiableAppBar extends StatelessWidget {
                         color: Color(0xFFFD6F4F)),
                   ),
                   Text(
-                    'will you',
+                    'are you',
                     style: TextStyle(
                       fontFamily: 'Opensans',
                       fontSize: 50.0,
                     ),
                   ),
                   Text(
-                    'Learn today',
+                    'Doing!',
                     style: TextStyle(
                       fontFamily: 'Opensans',
                       fontSize: 50.0,

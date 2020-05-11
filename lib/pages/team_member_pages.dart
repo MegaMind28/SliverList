@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:listview/myflexiableappbar.dart';
 import 'package:listview/myappbar.dart';
@@ -75,26 +74,95 @@ class _SearchState extends State<Search> {
                   delegate: SliverChildBuilderDelegate ((context,index){
                     return InkWell(
                       onTap: (){
-                        print('${snapshot.data[index].data["image"]}');
                         navigateToDetail(snapshot.data[index]);
                       },
-                      child: Center(
-                      /*  child: FadeInImage.memoryNetwork(
-                          placeholder: kTransparentImage,
-                          image: '${snapshot.data[index].data["image"]}',
-                          height: 250.0,
-                          width: MediaQuery.of(context).size.width,
-                          fit: BoxFit.fill,
-                        ),*/
-                        child: Hero(tag: snapshot.data[index],
+                      /*  child: Container(
+                        child: Hero(
+                          tag: snapshot.data[index],
                           child: Image.network(snapshot.data[index].data["image"]),
-                        ),
+                        )
+                      ),*/
+
+
+                      child: Column(
+                        children: <Widget>[
+                          Container(
+                            width: MediaQuery.of(context).size.width,
+                            child: Padding(
+                              padding: EdgeInsets.all(12.0),
+                              child: Material(
+                                elevation: 8,
+                                borderRadius: BorderRadius.all(Radius.circular(8)),
+                                child: Column (children: <Widget>[
+                                  Container(
+                                      width: MediaQuery.of(context).size.width,
+                                      height: 195.0,
+                                      child: ClipRRect(
+                                        borderRadius: BorderRadius.only(topLeft: Radius.circular(8),topRight: Radius.circular(8)),
+                                        child: Stack(
+                                          children: <Widget>[
+                                            Center(child: CircularProgressIndicator()),
+                                            Center(
+                                              /*child: FadeInImage.memoryNetwork(
+                                                placeholder: kTransparentImage,
+                                                image: snapshot.data[index].data["image"],
+                                                width: MediaQuery.of(context).size.width,
+                                                fit: BoxFit.fitWidth,
+                                              ),*/
+                                              child: Hero(
+                                                tag: snapshot.data[index],
+                                                child: FadeInImage.memoryNetwork(
+                                                  placeholder: kTransparentImage,
+                                                  image: snapshot.data[index].data["image"],
+                                                  width: MediaQuery.of(context).size.width,
+                                                  fit: BoxFit.fitWidth,
+                                                ),
+                                              ),
+                                            ),
+                                          ],
+                                        ),
+                                      )
+                                  ),
+                                  Container(
+                                    alignment: Alignment.topLeft,
+                                    padding: EdgeInsets.only(top: 10.0,right: 10.0,left: 10.0,bottom: 15.0),
+                                    child: Column
+                                      ( crossAxisAlignment: CrossAxisAlignment.start, children: <Widget>[
+                                      SizedBox(height: 10),
+                                      Text(snapshot.data[index].data["title"],textAlign: TextAlign.justify,maxLines: 2,
+                                        style: TextStyle(
+                                          fontWeight: FontWeight.w600,
+                                          fontSize: 18,
+                                          letterSpacing: 0.27,
+                                         // color: DesignCourseAppTheme.darkerText,
+                                        ),overflow: TextOverflow.ellipsis,),
+                                      SizedBox(height: 10.0),
+                                      Text (snapshot.data[index].data["subtitle"],
+                                        textAlign: TextAlign.justify,
+                                        style: TextStyle(
+                                          /*fontFamily: ,*/
+                                          fontWeight: FontWeight.w200,
+                                          fontSize: 14,
+                                          letterSpacing: 0.27,
+                                         // color: DesignCourseAppTheme.darkerText,
+                                        ),
+                                        maxLines: 4,
+                                        overflow: TextOverflow.ellipsis,
+                                      )
+                                    ],),
+                                  ),
+                                ],),
+                              ),
+                            ),
+                          )
+                        ],
                       ),
+
+
                     );
 
                   },
-                    childCount:snapshot.data.length
-                    /* childCount: 3*/
+                      childCount:snapshot.data.length
                   ),
 
                 )
@@ -131,14 +199,14 @@ class _DetailPageState extends State<DetailPage> {
       ),
     );*/
     return Scaffold(
-      appBar: AppBar(
-        title: Text(widget.post.data["title"]),
-      ),
-      body: Center(
-        child: Hero(transitionOnUserGestures: true,
-        tag: widget,child: Transform.scale(scale: 1.5,child: Image.network(widget.post.data["image"]),),
-          /*child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),*/
-      ),
-      ));
+        appBar: AppBar(
+          title: Text(widget.post.data["title"]),
+        ),
+        body: Center(
+          child: Hero(transitionOnUserGestures: true,
+            tag: widget.post,child: Transform.scale(scale: 1.5,child: Image.network(widget.post.data["image"]),),
+            /*child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),*/
+          ),
+        ));
   }
 }
