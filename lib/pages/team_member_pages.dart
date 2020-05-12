@@ -37,7 +37,7 @@ class _SearchState extends State<Search> {
   Future _data;
   Future getsData()async{
     var firestore =Firestore.instance;
-    /*QuerySnapshot qp=await firestore.collection("posts").getDocuments();*/
+    QuerySnapshot qp=await firestore.collection("posts").getDocuments();
    QuerySnapshot qn = await firestore.collection("posts").getDocuments().then((querySnapshot) {
       querySnapshot.documents.forEach((result) {
         firestore
@@ -52,7 +52,7 @@ class _SearchState extends State<Search> {
         });
       });
     });
-    return qn.documents;
+    return qp.documents;
   }
   navigateToDetail (DocumentSnapshot post){
     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)));
