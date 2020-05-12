@@ -37,7 +37,21 @@ class _SearchState extends State<Search> {
   Future _data;
   Future getsData()async{
     var firestore =Firestore.instance;
-    QuerySnapshot qn=await firestore.collection("posts").getDocuments();
+    /*QuerySnapshot qp=await firestore.collection("posts").getDocuments();*/
+   QuerySnapshot qn = await firestore.collection("posts").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        firestore
+            .collection("posts")
+            .document(result.documentID)
+            .collection("exampleSubcollection")
+            .getDocuments()
+            .then((querySnapshot) {
+          querySnapshot.documents.forEach((result) {
+            print(result.data);
+          });
+        });
+      });
+    });
     return qn.documents;
   }
   navigateToDetail (DocumentSnapshot post){
@@ -172,6 +186,7 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
+    print(widget.post.data);
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.post.data["title"]),
