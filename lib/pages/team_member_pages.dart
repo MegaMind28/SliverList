@@ -41,7 +41,6 @@ class _SearchState extends State<Search> {
     return qn.documents;
   }
   navigateToDetail (DocumentSnapshot post){
-    /* Navigator.push(context, MaterialPageRoute(builder: (context)=>CourseInfoScreen=(post: post,)));*/
     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)));
   }
   @override
@@ -76,13 +75,6 @@ class _SearchState extends State<Search> {
                       onTap: (){
                         navigateToDetail(snapshot.data[index]);
                       },
-                      /*  child: Container(
-                        child: Hero(
-                          tag: snapshot.data[index],
-                          child: Image.network(snapshot.data[index].data["image"]),
-                        )
-                      ),*/
-
 
                       child: Column(
                         children: <Widget>[
@@ -103,12 +95,6 @@ class _SearchState extends State<Search> {
                                           children: <Widget>[
                                             Center(child: CircularProgressIndicator()),
                                             Center(
-                                              /*child: FadeInImage.memoryNetwork(
-                                                placeholder: kTransparentImage,
-                                                image: snapshot.data[index].data["image"],
-                                                width: MediaQuery.of(context).size.width,
-                                                fit: BoxFit.fitWidth,
-                                              ),*/
                                               child: Hero(
                                                 tag: snapshot.data[index],
                                                 child: FadeInImage.memoryNetwork(
@@ -134,7 +120,7 @@ class _SearchState extends State<Search> {
                                           fontWeight: FontWeight.w600,
                                           fontSize: 18,
                                           letterSpacing: 0.27,
-                                         // color: DesignCourseAppTheme.darkerText,
+                                          // color: DesignCourseAppTheme.darkerText,
                                         ),overflow: TextOverflow.ellipsis,),
                                       SizedBox(height: 10.0),
                                       Text (snapshot.data[index].data["subtitle"],
@@ -144,7 +130,7 @@ class _SearchState extends State<Search> {
                                           fontWeight: FontWeight.w200,
                                           fontSize: 14,
                                           letterSpacing: 0.27,
-                                         // color: DesignCourseAppTheme.darkerText,
+                                          // color: DesignCourseAppTheme.darkerText,
                                         ),
                                         maxLines: 4,
                                         overflow: TextOverflow.ellipsis,
@@ -186,18 +172,6 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    /*return Container(
-      child: Center(
-        children: <Widget>[
-         Hero(
-           transitionOnUserGestures: true,
-           tag: widget,child: Transform.scale(scale: 1.0,child: Image.network(widget.post.data["image"]),),
-         ),
-          Hero(child: Text(widget.post.data["title"])),
-          Text(widget.post.data["subtitle"])
-        ],
-      ),
-    );*/
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.post.data["title"]),
@@ -205,7 +179,6 @@ class _DetailPageState extends State<DetailPage> {
         body: Center(
           child: Hero(transitionOnUserGestures: true,
             tag: widget.post,child: Transform.scale(scale: 1.5,child: Image.network(widget.post.data["image"]),),
-            /*child: Transform.rotate(angle: 45.0,child: Image.network(widget.post.data["image"]),),*/
           ),
         ));
   }
