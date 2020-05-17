@@ -3,10 +3,9 @@ import 'package:listview/myflexiableappbar.dart';
 import 'package:listview/myappbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:transparent_image/transparent_image.dart';
+import 'package:device_preview/device_preview.dart';
 
 void main() => runApp(MyApp());
-var number;
-var mypost;
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -38,24 +37,11 @@ class _SearchState extends State<Search> {
   Future getsData()async{
     var firestore =Firestore.instance;
     QuerySnapshot qp=await firestore.collection("posts").getDocuments();
-   QuerySnapshot qn = await firestore.collection("posts").getDocuments().then((querySnapshot) {
-      querySnapshot.documents.forEach((result) {
-        firestore
-            .collection("posts")
-            .document(result.documentID)
-            .collection("exampleSubcollection")
-            .getDocuments()
-            .then((querySnapshot) {
-          querySnapshot.documents.forEach((result) {
-            print(result.data);
-          });
-        });
-      });
-    });
-    return qp.documents;
+
+   return qp.documents;
   }
   navigateToDetail (DocumentSnapshot post){
-    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)));
+    Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)),);
   }
   @override
   void initState(){
@@ -72,6 +58,7 @@ class _SearchState extends State<Search> {
           future: _data,
           builder: (_,snapshot){
 
+
             return  CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
@@ -86,10 +73,9 @@ class _SearchState extends State<Search> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate ((context,index){
                     return InkWell(
-                      onTap: (){
+                      onTap: (){                                    //===============================================================================
                         navigateToDetail(snapshot.data[index]);
                       },
-
                       child: Column(
                         children: <Widget>[
                           Container(
@@ -186,7 +172,22 @@ class DetailPage extends StatefulWidget {
 class _DetailPageState extends State<DetailPage> {
   @override
   Widget build(BuildContext context) {
-    print(widget.post.data);
+   // print(widget.post.data["id"]);
+    Firestore.instance.collection("posts").getDocuments().then((querySnapshot) {
+      querySnapshot.documents.forEach((result) {
+        Firestore.instance
+            .collection("posts")
+            .document(widget.post.data["id"])
+            .collection("exampleSubcollection")
+            .getDocuments()
+            .then((querySnapshot) {
+          querySnapshot.documents.forEach((result) {
+            print(result.data);
+          });
+        });
+      });
+    });
+
     return Scaffold(
         appBar: AppBar(
           title: Text(widget.post.data["title"]),
@@ -198,3 +199,4 @@ class _DetailPageState extends State<DetailPage> {
         ));
   }
 }
+

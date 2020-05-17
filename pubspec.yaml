@@ -28,6 +28,7 @@ dev_dependencies:
   transparent_image: ^1.0.0
   cloud_firestore: ^0.13.4+2
   font_awesome_flutter: ^8.2.0
+  device_preview: ^0.4.5
   flutter_test:
     sdk: flutter
 
