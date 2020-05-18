@@ -1,3 +1,4 @@
+
 import 'package:flutter/material.dart';
 import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:listview/pages/team_member_pages.dart';
@@ -7,12 +8,14 @@ class Splash extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+/*
     Future data;
     Future getsData()async{
       var firestore =Firestore.instance;
       QuerySnapshot qp=await firestore.collection("posts").getDocuments();
+*/
 
-    SplashScreen.navigate(
+  return  SplashScreen.navigate(
       name: "assets/intro.flr",
       next: Search(),
       width: double.infinity,
@@ -23,6 +26,5 @@ class Splash extends StatelessWidget {
       startAnimation: "coding",
     );
 
-    return qp.documents;
   }
-}}
+}
