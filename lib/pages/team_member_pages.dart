@@ -4,6 +4,8 @@ import 'package:listview/myappbar.dart';
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:transparent_image/transparent_image.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'package:listview/splash.dart';
 
 void main() => runApp(MyApp());
 class MyApp extends StatelessWidget {
@@ -21,11 +23,9 @@ class MyApp extends StatelessWidget {
   }
 }
 
+
 class Search extends StatefulWidget {
   Search({Key key, this.title}) : super(key: key);
-
-
-
   final String title;
 
 
@@ -33,6 +33,7 @@ class Search extends StatefulWidget {
 }
 
 class _SearchState extends State<Search> {
+
   Future _data;
   Future getsData()async{
     var firestore =Firestore.instance;

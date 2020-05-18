@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:device_preview/device_preview.dart';
+import 'package:listview/splash.dart';
 import 'pages/team_member_pages.dart';
+import 'package:flare_splash_screen/flare_splash_screen.dart';
+import 'splash.dart';
 
 void main() => runApp(MyApp()
 );
@@ -18,7 +21,7 @@ class MyApp extends StatelessWidget {
           primarySwatch: Colors.blue,
           canvasColor: Colors.white
       ),
-      home: Search(),
+      home: Splash(),
     );
   }
 }
