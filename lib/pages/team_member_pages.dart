@@ -58,8 +58,6 @@ class _SearchState extends State<Search> {
         body:FutureBuilder(
           future: _data,
           builder: (_,snapshot){
-
-
             return  CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
