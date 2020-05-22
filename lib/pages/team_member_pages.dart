@@ -8,6 +8,8 @@ import 'package:flare_splash_screen/flare_splash_screen.dart';
 import 'package:listview/splash.dart';
 
 void main() => runApp(MyApp());
+var test;
+var qp;
 class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
@@ -28,7 +30,6 @@ class Search extends StatefulWidget {
   Search({Key key, this.title}) : super(key: key);
   final String title;
 
-
   _SearchState createState() => _SearchState();
 }
 
@@ -38,8 +39,8 @@ class _SearchState extends State<Search> {
   Future getsData()async{
     var firestore =Firestore.instance;
     QuerySnapshot qp=await firestore.collection("posts").getDocuments();
-
    return qp.documents;
+
   }
   navigateToDetail (DocumentSnapshot post){
     Navigator.push(context, MaterialPageRoute(builder: (context) => DetailPage(post: post,)),);
@@ -58,7 +59,7 @@ class _SearchState extends State<Search> {
         body:FutureBuilder(
           future: _data,
           builder: (_,snapshot){
-            return  CustomScrollView(
+             return CustomScrollView(
               slivers: <Widget>[
                 SliverAppBar(
                     title: MyAppBar(),
@@ -72,7 +73,7 @@ class _SearchState extends State<Search> {
                 SliverList(
                   delegate: SliverChildBuilderDelegate ((context,index){
                     return InkWell(
-                      onTap: (){                                    //===============================================================================
+                      onTap: (){
                         navigateToDetail(snapshot.data[index]);
                       },
                       child: Column(
