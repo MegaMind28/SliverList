@@ -176,7 +176,7 @@ class _DetailPageState extends State<DetailPage> {
     Firestore.instance.collection("posts").getDocuments().then((querySnapshot) {
       querySnapshot.documents.forEach((result) {
         Firestore.instance
-            .collection("posts")
+            .collection("NewPost")
             .document(widget.post.data["id"])
             .collection("exampleSubcollection")
             .getDocuments()
