@@ -193,7 +193,7 @@ class _DetailPageState extends State<DetailPage> {
           title: Text(widget.post.data["title"]),
         ),
         body: Center(
-          child: Hero(transitionOnUserGestures: true,
+          child: Hero(transitionOnUserGestures: false,
             tag: widget.post,child: Transform.scale(scale: 1.5,child: Image.network(widget.post.data["image"]),),
           ),
         ));
