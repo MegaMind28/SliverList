@@ -52,7 +52,7 @@ QuerySnapshot qn;
         height: double.infinity,
         alignment: Alignment.center,
       until: () => Future.delayed(Duration(seconds: 2)),
-        backgroundColor: Colors.white,
+        backgroundColor: Colors.blue,
         startAnimation: "coding",
       );
 
